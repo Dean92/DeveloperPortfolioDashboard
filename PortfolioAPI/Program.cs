@@ -20,7 +20,8 @@ namespace PortfolioAPI
             // Automatically includes User Secrets in Development environment
             builder.Configuration.AddUserSecrets<Program>();
 
-
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
@@ -31,6 +32,12 @@ namespace PortfolioAPI
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                app.UseSwagger();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Portfolio API V1");
+                    c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
+                });
             }
 
             app.UseHttpsRedirection();
