@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using PortfolioAPI.Data;
 
 namespace PortfolioAPI
@@ -15,13 +16,21 @@ namespace PortfolioAPI
             builder.Services.AddControllers();
 
             builder.Services.AddDbContext<PortfolioDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("PortfolioDb")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("PortfolioDb"),
+            sqlServerOptions => sqlServerOptions.EnableRetryOnFailure(
+                maxRetryCount: 5,
+                maxRetryDelay: TimeSpan.FromSeconds(10),
+                errorNumbersToAdd: null)));
 
             // Automatically includes User Secrets in Development environment
             builder.Configuration.AddUserSecrets<Program>();
 
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen( c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Portfolio API", Version = "v1" });
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "PortfolioAPI.xml"), true);
+            });
 
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();

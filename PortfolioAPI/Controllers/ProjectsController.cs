@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PortfolioAPI.Data;
 using PortfolioShared.Models;
+using PortfolioShared.Dtos;
 
 namespace PortfolioAPI.Controllers;
 
@@ -31,4 +32,66 @@ public class ProjectsController : ControllerBase
     }
 
     // Existing endpoints (GetProjects, CreateProject, etc.) remain unchanged
+
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
+    {
+        return await _context.Projects.ToListAsync();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Project>> CreateProject(ProjectCreateDto projectDto)
+    {
+        var project = new Project
+        {
+            Title = projectDto.Title,
+            Description = projectDto.Description,
+            GitHubUrl = projectDto.GitHubUrl,
+            Stars = projectDto.Stars,
+            Technologies = projectDto.Technologies,
+            UserId = projectDto.UserId
+        };
+
+        
+        _context.Projects.Add(project);
+        await _context.SaveChangesAsync();
+        return CreatedAtAction(nameof(GetProjects), new { id = project.Id }, project);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Project>> GetProject(int id)
+    {
+        var project = await _context.Projects.FindAsync(id);
+        if (project == null)
+        {
+            return NotFound();
+        }
+        return project;
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateProject(int id, Project project)
+    {
+        if (id != project.Id)
+        {
+            return BadRequest("Project ID mismatch.");
+        }
+        _context.Entry(project).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteProject(int id)
+    {
+        var project = await _context.Projects.FindAsync(id);
+        if (project == null)
+        {
+            return NotFound();
+        }
+        _context.Projects.Remove(project);
+        await _context.SaveChangesAsync();
+        return NoContent();
+    }
 }
