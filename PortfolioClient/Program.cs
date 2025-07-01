@@ -1,4 +1,5 @@
 using PortfolioClient.Components;
+using PortfolioClient.Services;
 
 namespace PortfolioClient
 {
@@ -11,6 +12,16 @@ namespace PortfolioClient
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+
+
+            // Register HttpClient for API calls
+            builder.Services.AddHttpClient("PortfolioApi", client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:7165/"); // Adjust to PortfolioApi port
+            });
+
+            // Add ProjectService
+            builder.Services.AddScoped<ProjectService>();
 
             var app = builder.Build();
 

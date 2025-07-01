@@ -1,7 +1,26 @@
 ﻿@page "/"
+@using PortfolioShared.Models
 
-<PageTitle>Home</PageTitle>
+<h1 class="display-4 text-center my-4">Developer Portfolio Dashboard</h1>
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
+@if (projects == null)
+{
+    <p>Loading...</p>
+}
+else if (projects.Count == 0)
+{
+    <p>No projects found.</p>
+}
+else
+{
+    <div class="container">
+        <div class="row">
+            @foreach (var project in projects)
+            {
+                <div class="col-md-6 mb-4">
+                    <ProjectCard Project="@project" />
+                </div>
+            }
+        </div>
+    </div>
+}

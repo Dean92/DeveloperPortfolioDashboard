@@ -22,6 +22,17 @@ namespace PortfolioAPI
                 maxRetryDelay: TimeSpan.FromSeconds(10),
                 errorNumbersToAdd: null)));
 
+            // Add CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowPortfolioClient", builder =>
+                {
+                    builder.WithOrigins("https://localhost:7182") // Adjust to PortfolioClient port
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
+
             // Automatically includes User Secrets in Development environment
             builder.Configuration.AddUserSecrets<Program>();
 
@@ -50,7 +61,7 @@ namespace PortfolioAPI
             }
 
             app.UseHttpsRedirection();
-
+            app.UseCors("AllowPortfolioClient");
             app.UseAuthorization();
 
 
