@@ -1,31 +1,24 @@
-﻿@inherits ComponentBase
-@using PortfolioShared.Models
+﻿@using PortfolioShared.Models
 
-<div class="card mb-3 shadow-sm">
+<div class="card">
     <div class="card-body">
         <h5 class="card-title">@Project.Title</h5>
         <p class="card-text">@Project.Description</p>
-        <p class="card-text">
-            <small class="text-muted">
-                Tech:
-                @foreach (var tech in Project.Technologies)
-                {
-                    <span class="badge bg-primary me-1">@tech</span>
-                }
-            </small>
-        </p>
-        <a href="@Project.GitHubUrl" class="btn btn-primary" target="_blank">View on GitHub</a>
-        <span class="badge bg-secondary float-end">@Project.Stars ★</span>
+        <p class="card-text"><strong>Started:</strong> @Project.StartDate.ToShortDateString()</p>
+        <p class="card-text"><strong>Technologies:</strong> @string.Join(", ", Project.Technologies)</p>
+        @if (!string.IsNullOrEmpty(Project.GitHubProjectTitle))
+        {
+            <p class="card-text"><strong>GitHub Project:</strong> @Project.GitHubProjectTitle</p>
+            <p class="card-text"><strong>Status:</strong> @Project.GitHubProjectColumn</p>
+        }
+        @if (!string.IsNullOrEmpty(Project.GitHubUrl))
+        {
+            <a href="@Project.GitHubUrl" class="btn btn-primary" target="_blank">View on GitHub</a>
+        }
     </div>
 </div>
 
 @code {
     [Parameter]
-    public Project Project { get; set; } = new();
-
-    protected override async Task OnInitializedAsync()
-    {
-        // Placeholder for future SignalR or API call
-        await Task.CompletedTask;
-    }
+    public Project Project { get; set; } = null!;
 }

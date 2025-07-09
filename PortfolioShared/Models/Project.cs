@@ -11,10 +11,13 @@ namespace PortfolioShared.Models
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public string GitHubUrl { get; set; } = string.Empty;
-        public int Stars { get; set; }
-        public List<string> Technologies { get; set; } = new();
-        public int UserId { get; set; }
-        public User User { get; set; } = null!;
+        public DateTime StartDate { get; set; }
+        public List<string> Technologies { get; set; } = new List<string>();
+        public string GitHubUrl { get; set; } = string.Empty; // GitHub repository URL
+        public string GitHubProjectTitle { get; set; } = string.Empty; // GitHub Project title
+        public string GitHubProjectColumn { get; set; } = string.Empty; // GitHub Project column name
+        public int GitHubProjectNumber { get; set; } // GitHub Project number
+        public int UserId { get; set; } // Foreign key to User
+        public User? User { get; set; } // Navigation property
     }
 }

@@ -6,8 +6,8 @@ using PortfolioShared.Dtos;
 
 namespace PortfolioAPI.Controllers;
 
-[ApiController]
 [Route("api/[controller]")]
+[ApiController]
 public class ProjectsController : ControllerBase
 {
     private readonly PortfolioDbContext _context;
@@ -31,9 +31,6 @@ public class ProjectsController : ControllerBase
         }
     }
 
-    // Existing endpoints (GetProjects, CreateProject, etc.) remain unchanged
-
-
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
     {
@@ -47,13 +44,13 @@ public class ProjectsController : ControllerBase
         {
             Title = projectDto.Title,
             Description = projectDto.Description,
-            GitHubUrl = projectDto.GitHubUrl,
-            Stars = projectDto.Stars,
+            StartDate = projectDto.StartDate,
             Technologies = projectDto.Technologies,
+            GitHubUrl = projectDto.GitHubRepoUrl,
+            GitHubProjectNumber = projectDto.GitHubProjectNumber,
             UserId = projectDto.UserId
         };
 
-        
         _context.Projects.Add(project);
         await _context.SaveChangesAsync();
         return CreatedAtAction(nameof(GetProjects), new { id = project.Id }, project);
@@ -78,7 +75,18 @@ public class ProjectsController : ControllerBase
             return BadRequest("Project ID mismatch.");
         }
         _context.Entry(project).State = EntityState.Modified;
-        await _context.SaveChangesAsync();
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!await _context.Projects.AnyAsync(p => p.Id == id))
+            {
+                return NotFound();
+            }
+            throw;
+        }
         return NoContent();
     }
 

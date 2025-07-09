@@ -1,5 +1,12 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+@using PortfolioClient.Services
 @using PortfolioShared.Models
+@using Microsoft.AspNetCore.Authorization
+@* @attribute [Authorize] *@
+@inject ProjectService ProjectService
+@* @inject AuthenticationStateProvider AuthStateProvider *@
+@inject NavigationManager NavigationManager
 
 <h1 class="display-4 text-center my-4">Developer Portfolio Dashboard</h1>
 
@@ -23,4 +30,13 @@ else
             }
         </div>
     </div>
+}
+
+@code {
+    private List<Project>? projects;
+
+    protected override async Task OnInitializedAsync()
+    {
+        projects = await ProjectService.GetProjectsAsync();
+    }
 }

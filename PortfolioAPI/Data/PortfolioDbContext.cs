@@ -5,11 +5,14 @@ namespace PortfolioAPI.Data
 {
     public class PortfolioDbContext : DbContext
     {
-        public PortfolioDbContext(DbContextOptions<PortfolioDbContext> options) : base(options)
-        { }
-            public DbSet<User> Users { get; set; }
-            public DbSet<Project> Projects { get; set; }
-            public DbSet<Skill> Skills { get; set; }
+        public PortfolioDbContext(DbContextOptions<PortfolioDbContext> options)
+         : base(options)
+        {
+        }
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Skill> Skills { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +25,12 @@ namespace PortfolioAPI.Data
                 .HasMany(u => u.Skills)
                 .WithOne(s => s.User)
                 .HasForeignKey(s => s.UserId);
+
+            modelBuilder.Entity<Project>()
+                .Property(p => p.Technologies)
+                .HasConversion(
+                    v => string.Join(",", v),
+                    v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
         }
     }
 }
