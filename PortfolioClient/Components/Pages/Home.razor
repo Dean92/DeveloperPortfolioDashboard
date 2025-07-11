@@ -8,29 +8,57 @@
 @* @inject AuthenticationStateProvider AuthStateProvider *@
 @inject NavigationManager NavigationManager
 
-<h1 class="display-4 text-center my-4">Developer Portfolio Dashboard</h1>
-
-@if (projects == null)
-{
-    <p>Loading...</p>
-}
-else if (projects.Count == 0)
-{
-    <p>No projects found.</p>
-}
-else
-{
+<div class="hero-section">
     <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 text-center">
+                <img src="images/DeanM.jfif" alt="Dean McCoy" class="rounded-circle mb-3" style="width: 150px; height: 150px;" /> <!-- Add your photo in wwwroot/images -->
+                <h1 class="display-4">Dean McCoy</h1>
+                <h2>Software Engineer</h2>
+                <p>With over X years of experience in .NET and Blazor, I build scalable web applications and integrate with services like Azure and GitHub. Passionate about clean code and innovative solutions.</p>
+                <div class="mb-3">
+                    <span class="badge skill-badge me-2">.NET 9.0</span>
+                    <span class="badge skill-badge me-2">Blazor</span>
+                    <span class="badge skill-badge me-2">Azure</span>
+                    <span class="badge skill-badge me-2">GitHub API</span>
+                </div>
+                <div>
+                    <a href="https://www.linkedin.com/in/deanmc/" class="btn btn-primary me-2" target="_blank">LinkedIn</a>
+                    <a href="https://github.com/Dean92/" class="btn btn-secondary" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h2 class="text-center mb-4">Featured Projects</h2>
+    @if (projects == null)
+    {
+        <p class="text-center">Loading...</p>
+    }
+    else if (projects.Count == 0)
+    {
+        <p class="text-center">No projects found.</p>
+    }
+    else
+    {
         <div class="row">
             @foreach (var project in projects)
             {
-                <div class="col-md-6 mb-4">
-                    <ProjectCard Project="@project" />
+                <div class="col-md-4 mb-4">
+                    <div class="card project-card">
+                        <ProjectCard Project="@project" />
+                    </div>
                 </div>
             }
         </div>
-    </div>
-}
+    }
+</div>
+
+<footer class="text-center py-2 bg-light text-dark">
+    <p class="mb-0">© @DateTime.Today.Year Dean McCoy. All rights reserved.</p>
+</footer>
 
 @code {
     private List<Project>? projects;

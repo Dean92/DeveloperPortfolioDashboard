@@ -1,0 +1,36 @@
+﻿:root {
+    --primary-color: #70A762; /* Blue for buttons/links */
+    --secondary-color: #6c757d; /* Gray for text */
+    --accent-color: #080D07; /* Black for skills/highlights */
+    --background-color: #f8f9fa; /* Light gray background */
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+.hero-section {
+    background: linear-gradient(to right, #70A762, #3A5C33);
+    color: white;
+    padding: 50px 0;
+    text-align: center;
+}
+
+.project-card {
+    transition: transform 0.2s;
+}
+
+.project-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.skill-badge {
+    background-color: var(--accent-color);
+    color: white;
+}
