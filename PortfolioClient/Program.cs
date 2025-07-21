@@ -92,13 +92,13 @@ namespace PortfolioClient
                 };
             });
 
-
+            // Change when publishing to Azure
             //builder.Services.AddHttpClient("PortfolioApi", client =>
             //{
             //    client.BaseAddress = new Uri("https://portfoliodashboardapi-b4bfeje0cwdeenh8.centralus-01.azurewebsites.net/");
             //});
 
-            // Register HttpClient for API calls
+            // Register HttpClient for API calls Local Development
             builder.Services.AddHttpClient("PortfolioApi", client =>
             {
                 client.BaseAddress = new Uri("https://localhost:7165/");

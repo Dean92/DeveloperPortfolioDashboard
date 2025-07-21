@@ -4,7 +4,7 @@
     <div class="card-body">
         <h5 class="card-title">@Project.Title</h5>
         <p class="card-text">@Project.Description</p>
-        <p class="card-text"><strong>Started:</strong> @Project.StartDate.ToShortDateString()</p>
+        <p class="card-text"><strong>Developed Date:</strong> @Project.StartDate.ToShortDateString()</p>
         <p class="card-text"><strong>Technologies:</strong> @string.Join(", ", Project.Technologies)</p>
         @if (!string.IsNullOrEmpty(Project.GitHubProjectTitle))
         {
