@@ -10,6 +10,7 @@
 
 body {
     background-color: var(--background-color);
+    font-family: 'Nunito Sans', sans-serif;
 }
 
 .hero-section {
@@ -18,6 +19,15 @@ body {
     padding: 50px 0;
     text-align: center;
 }
+
+    .hero-section h1, .hero-section h2, .hero-section p {
+        font-family: 'Nunito Sans', sans-serif;
+        font-weight: 700; /* Bold for headings */
+    }
+
+    .hero-section p {
+        font-weight: 400; /* Regular for paragraph */
+    }
 
 .project-card {
     transition: transform 0.2s;
@@ -28,10 +38,22 @@ body {
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
+    .project-card .card-title {
+        font-family: 'Nunito Sans', sans-serif;
+        font-weight: 600; /* Semi-bold for card titles */
+    }
+
+    .project-card .card-text {
+        font-family: 'Nunito Sans', sans-serif;
+        font-weight: 400; /* Regular for card text */
+    }
+
 .btn-primary {
     background-color: var(--primary-color);
     border-color: var(--primary-color);
     color: white;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
 }
 
     .btn-primary:hover {
@@ -43,6 +65,8 @@ body {
 .btn-secondary {
     background-color: var(--secondary-color);
     border-color: var(--secondary-color);
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
 }
 
     .btn-secondary:hover {
@@ -54,6 +78,8 @@ body {
     background-color: var(--linkedin-color);
     border-color: var(--linkedin-color);
     color: white;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
 }
 
     .btn-linkedin:hover {
@@ -65,4 +91,11 @@ body {
 .skill-badge {
     background-color: var(--accent-color);
     color: white;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 400;
+}
+
+footer {
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 400;
 }
