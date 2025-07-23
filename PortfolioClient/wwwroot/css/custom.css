@@ -6,6 +6,7 @@
     --background-color: #f8f9fa; /* Light gray background */
     --linkedin-color: #0072b1; /* LinkedIn brand blue */
     --linkedin-hover-color: #005f8f; /* Slightly darker for LinkedIn hover */
+    --skills-background-color: #E6F0E1; /* Light green for skills section */
 }
 
 body {
@@ -98,4 +99,18 @@ body {
 footer {
     font-family: 'Nunito Sans', sans-serif;
     font-weight: 400;
+}
+
+.skills-section {
+    background-color: var(--skills-background-color);
+    padding: 15px; /* Reduced from 20px */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.projects-section {
+    background-color: var(--skills-background-color);
+    padding: 15px; /* Reduced from 20px */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

@@ -15,13 +15,19 @@
                 <img src="images/DeanM.jfif" alt="Dean McCoy" class="rounded-circle mb-3" style="width: 150px; height: 150px;" /> <!-- Add your photo in wwwroot/images -->
                 <h1 class="display-4">Dean McCoy</h1>
                 <h2>Software Engineer</h2>
-                <p>With over fifteen years of experience in .NET and Blazor, I build scalable web applications and integrate with services like Azure and GitHub. Passionate about clean code and innovative solutions.</p>
-                <div class="mb-3">
-                    <span class="badge skill-badge me-2">.NET 9.0</span>
-                    <span class="badge skill-badge me-2">Blazor</span>
+                <p>A seasoned Software Engineer with over 18 years of experience in full-stack development, specializing in C#, ASP.NET Core, Angular, Blazor, and Microsoft SQL Server. My career highlights include leading the development of secure customer portals and real-time applications at Champion Products & Distribution, optimizing UI components for accessibility at The Joint Commission, and building enterprise healthcare solutions at Claro Healthcare and Press Ganey Associates, where I delivered intuitive interfaces and RESTful APIs serving hundreds of clients. Proficient in Agile methodologies, Azure DevOps, GIT, and emerging technologies like SignalR and Highcharts, I excel in collaborative environments, translating business requirements into high-quality, scalable software while mentoring teams and ensuring efficient project outcomes. Holding a Bachelor of Applied Science from Robert Morris University, I am actively seeking new opportunities as a Software Engineer to leverage cutting-edge web technologies and contribute to innovative projects in the IT industry.</p>
+                @* <div class="mb-3">
+                    <span class="badge skill-badge me-2">ASP.NET Core</span>
                     <span class="badge skill-badge me-2">Azure</span>
-                    <span class="badge skill-badge me-2">GitHub API</span>
-                </div>
+                    <span class="badge skill-badge me-2">C#</span>
+                    <span class="badge skill-badge me-2">RESTful Web APIs</span>
+                    <span class="badge skill-badge me-2">Entity Framework Core</span>
+                    <span class="badge skill-badge me-2">Angular</span>
+                    <span class="badge skill-badge me-2">TypeScript</span>
+                    <span class="badge skill-badge me-2">SQL</span>
+                    <span class="badge skill-badge me-2">GIT</span>
+                    <span class="badge skill-badge me-2">Bootstrap</span>
+                </div> *@
                 <div>
                     <a href="https://www.linkedin.com/in/deanmc/" class="btn btn-linkedin me-2" target="_blank">LinkedIn</a>
                     <a href="https://github.com/Dean92/" class="btn btn-secondary" target="_blank">GitHub</a>
@@ -31,29 +37,127 @@
     </div>
 </div>
 
-<div class="container my-5">
-    <h2 class="text-center mb-4">Featured Projects</h2>
-    @if (projects == null)
-    {
-        <p class="text-center">Loading...</p>
-    }
-    else if (projects.Count == 0)
-    {
-        <p class="text-center">No projects found.</p>
-    }
-    else
-    {
+
+<div class="skills-section my-2">
+    <div class="container">
+        <h2 class="text-center mb-4">Skills</h2>
         <div class="row">
-            @foreach (var project in projects)
-            {
-                <div class="col-md-4 mb-4">
-                    <div class="card project-card">
-                        <ProjectCard Project="@project" />
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Backend</h5>
+                        <div class="d-flex flex-wrap">
+                            <span class="badge skill-badge me-2 mb-2">C#</span>
+                            <span class="badge skill-badge me-2 mb-2">ASP.NET Core</span>
+                            <span class="badge skill-badge me-2 mb-2">.NET Framework</span>
+                            <span class="badge skill-badge me-2 mb-2">RESTful Web APIs</span>
+                            <span class="badge skill-badge me-2 mb-2">Entity Framework Core</span>
+                            <span class="badge skill-badge me-2 mb-2">Node.js</span>
+                        </div>
                     </div>
                 </div>
-            }
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Frontend</h5>
+                        <div class="d-flex flex-wrap">
+                            <span class="badge skill-badge me-2 mb-2">Angular</span>
+                            <span class="badge skill-badge me-2 mb-2">JavaScript</span>
+                            <span class="badge skill-badge me-2 mb-2">TypeScript</span>
+                            <span class="badge skill-badge me-2 mb-2">HTML</span>
+                            <span class="badge skill-badge me-2 mb-2">CSS</span>
+                            <span class="badge skill-badge me-2 mb-2">SASS</span>
+                            <span class="badge skill-badge me-2 mb-2">Bootstrap</span>
+                            <span class="badge skill-badge me-2 mb-2">Blazor</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Database</h5>
+                        <div class="d-flex flex-wrap">
+                            <span class="badge skill-badge me-2 mb-2">Microsoft SQL Server</span>
+                            <span class="badge skill-badge me-2 mb-2">T-SQL Queries</span>
+                            <span class="badge skill-badge me-2 mb-2">Stored Procedures</span>
+                            <span class="badge skill-badge me-2 mb-2">Functions</span>
+                            <span class="badge skill-badge me-2 mb-2">Views</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Cloud & Tools</h5>
+                        <div class="d-flex flex-wrap">
+                            <span class="badge skill-badge me-2 mb-2">Azure</span>
+                            <span class="badge skill-badge me-2 mb-2">Azure DevOps</span>
+                            <span class="badge skill-badge me-2 mb-2">GIT</span>
+                            <span class="badge skill-badge me-2 mb-2">GitHub</span>
+                            <span class="badge skill-badge me-2 mb-2">Visual Studio</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Methodologies</h5>
+                        <div class="d-flex flex-wrap">
+                            <span class="badge skill-badge me-2 mb-2">Agile Scrum</span>
+                            <span class="badge skill-badge me-2 mb-2">Object-Oriented Programming (OOP)</span>
+                            <span class="badge skill-badge me-2 mb-2">Requirements Gathering</span>
+                            <span class="badge skill-badge me-2 mb-2">Software Architecture</span>
+                            <span class="badge skill-badge me-2 mb-2">CI/CD</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Other</h5>
+                        <div class="d-flex flex-wrap">
+                            <span class="badge skill-badge me-2 mb-2">SignalR</span>
+                            <span class="badge skill-badge me-2 mb-2">Highcharts</span>
+                            <span class="badge skill-badge me-2 mb-2">Accessibility Standards</span>
+                            <span class="badge skill-badge me-2 mb-2">Responsive Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    }
+    </div>
+</div>
+
+<div class="projects-section my-2">
+    <div class="container">
+        <h2 class="text-center mb-4">Featured Projects</h2>
+        @if (projects == null)
+        {
+            <p class="text-center">Loading...</p>
+        }
+        else if (projects.Count == 0)
+        {
+            <p class="text-center">No projects found.</p>
+        }
+        else
+        {
+            <div class="row">
+                @foreach (var project in projects)
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card project-card">
+                            <ProjectCard Project="@project" />
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
 </div>
 
 <footer class="text-center py-2 bg-light text-dark">
