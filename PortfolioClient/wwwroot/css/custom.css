@@ -7,6 +7,8 @@
     --linkedin-color: #0072b1; /* LinkedIn brand blue */
     --linkedin-hover-color: #005f8f; /* Slightly darker for LinkedIn hover */
     --skills-background-color: #E6F0E1; /* Light green for skills section */
+    --contact-color: #005f8f; /* Dark blue for Contact Me button */
+    --contact-hover-color: #0072b1; /* LinkedIn blue for hover */
 }
 
 body {
@@ -86,6 +88,22 @@ body {
     .btn-linkedin:hover {
         background-color: var(--linkedin-hover-color);
         border-color: var(--linkedin-hover-color);
+        color: white;
+    }
+
+.btn-contact {
+    background-color: var(--contact-color);
+    border-color: var(--contact-color);
+    color: white;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    width: 240px; /* Wider to match LinkedIn + GitHub buttons */
+    margin: 0 auto; /* Center the button */
+}
+
+    .btn-contact:hover {
+        background-color: var(--contact-hover-color);
+        border-color: var(--contact-hover-color);
         color: white;
     }
 
