@@ -11,9 +11,13 @@ namespace PortfolioShared.Models
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public string IntroDescription { get; set; } = string.Empty; // Short intro paragraph
+        public string DetailedDescription { get; set; } = string.Empty; // Extended description
+        public List<string> KeyFeatures { get; set; } = new List<string>(); // Bullet points for key features
         public DateTime StartDate { get; set; }
         public List<string> Technologies { get; set; } = new List<string>();
         public string GitHubUrl { get; set; } = string.Empty; // GitHub repository URL
+        public string ProjectUrl { get; set; } = string.Empty; // Live project URL
         public string GitHubProjectTitle { get; set; } = string.Empty; // GitHub Project title
         public string GitHubProjectColumn { get; set; } = string.Empty; // GitHub Project column name
         public int GitHubProjectNumber { get; set; } // GitHub Project number
