@@ -1,177 +1,139 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.Components.Authorization
-@using PortfolioClient.Services
-@using PortfolioShared.Models
-@using Microsoft.AspNetCore.Authorization
-@* @attribute [Authorize] *@
-@inject ProjectService ProjectService
-@* @inject AuthenticationStateProvider AuthStateProvider *@
-@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+@inject IJSRuntime JSRuntime
 
-<div class="hero-section">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8 text-center">
-                <img src="images/DeanM.jfif" alt="Dean McCoy" class="rounded-circle mb-3" style="width: 150px; height: 150px;" /> <!-- Add your photo in wwwroot/images -->
-                <h1 class="display-4">Dean McCoy</h1>
-                <h2>Software Engineer</h2>
-                <p>A seasoned Software Engineer with over 18 years of experience in full-stack development, specializing in C#, ASP.NET Core, Angular, Blazor, and Microsoft SQL Server. My career highlights include leading the development of secure customer portals and real-time applications at Champion Products & Distribution, optimizing UI components for accessibility at The Joint Commission, and building enterprise healthcare solutions at Claro Healthcare and Press Ganey Associates, where I delivered intuitive interfaces and RESTful APIs serving hundreds of clients. Proficient in Agile methodologies, Azure DevOps, GIT, and emerging technologies like SignalR and Highcharts, I excel in collaborative environments, translating business requirements into high-quality, scalable software while mentoring teams and ensuring efficient project outcomes. Holding a Bachelor of Applied Science from Robert Morris University, I am actively seeking new opportunities as a Software Engineer to leverage cutting-edge web technologies and contribute to innovative projects in the IT industry.</p>
-                @* <div class="mb-3">
-                    <span class="badge skill-badge me-2">ASP.NET Core</span>
-                    <span class="badge skill-badge me-2">Azure</span>
-                    <span class="badge skill-badge me-2">C#</span>
-                    <span class="badge skill-badge me-2">RESTful Web APIs</span>
-                    <span class="badge skill-badge me-2">Entity Framework Core</span>
-                    <span class="badge skill-badge me-2">Angular</span>
-                    <span class="badge skill-badge me-2">TypeScript</span>
-                    <span class="badge skill-badge me-2">SQL</span>
-                    <span class="badge skill-badge me-2">GIT</span>
-                    <span class="badge skill-badge me-2">Bootstrap</span>
-                </div> *@
-                <div>
-                    <a href="https://www.linkedin.com/in/deanmc/" class="btn btn-linkedin me-2" target="_blank">LinkedIn</a>
-                    <a href="https://github.com/Dean92/" class="btn btn-secondary" target="_blank">GitHub</a>
-                </div>
-                <div class="mt-3">
-                    <a href="mailto:Dean92@gmail.com" class="btn btn-contact">Contact Me</a>
-                </div>
+<PageTitle>Dean McCoy - Portfolio</PageTitle>
+
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+
+<div class="container">
+    <nav>
+        <a class="logo" @onclick="GoHome">DM</a>
+        <ul class="nav-links">
+            <li><a class="nav-link @(currentSection == "home" ? "active" : "")" @onclick="GoHome">Home</a></li>
+            <li><a class="nav-link @(currentSection == "projects" ? "active" : "")" @onclick="GoProjects">Projects</a></li>
+            <li><a class="nav-link @(currentSection == "contact" ? "active" : "")" @onclick="GoContact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Section -->
+    <section class="hero @(currentSection != "home" ? "hidden" : "")" id="home-section">
+        <div class="hero-content">
+            <p class="greeting">Welcome, my name is</p>
+            <h1 class="name">Dean McCoy</h1>
+            <div class="tagline-container">
+                <span class="tagline-prefix">I build compelling </span>
+                <span class="tagline-animated" id="animatedText">digital experiences</span>
             </div>
+            <p class="description">
+                Software engineer with over 18 years of experience, passionate about solving problems with code.
+                Specializing in C#, ASP.NET Core, Angular, Blazor, and Microsoft SQL Server.
+            </p>
+            <button type="button" class="cta-button" @onclick="GoProjects">
+                View my projects
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </button>
         </div>
+    </section>
+
+    <!-- Projects Section -->
+    <div class="@(currentSection != "projects" ? "hidden" : "")">
+        <ProjectsSection />
+    </div>
+
+    <!-- Contact Section -->
+    <div class="@(currentSection != "contact" ? "hidden" : "")">
+        <ContactSection />
     </div>
 </div>
 
-
-<div class="skills-section my-2">
-    <div class="container">
-        <h2 class="text-center mb-4">Skills</h2>
-        <div class="row">
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Backend</h5>
-                        <div class="d-flex flex-wrap">
-                            <span class="badge skill-badge me-2 mb-2">C#</span>
-                            <span class="badge skill-badge me-2 mb-2">ASP.NET Core</span>
-                            <span class="badge skill-badge me-2 mb-2">.NET Framework</span>
-                            <span class="badge skill-badge me-2 mb-2">RESTful Web APIs</span>
-                            <span class="badge skill-badge me-2 mb-2">Entity Framework Core</span>
-                            <span class="badge skill-badge me-2 mb-2">Node.js</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Frontend</h5>
-                        <div class="d-flex flex-wrap">
-                            <span class="badge skill-badge me-2 mb-2">Angular</span>
-                            <span class="badge skill-badge me-2 mb-2">JavaScript</span>
-                            <span class="badge skill-badge me-2 mb-2">TypeScript</span>
-                            <span class="badge skill-badge me-2 mb-2">HTML</span>
-                            <span class="badge skill-badge me-2 mb-2">CSS</span>
-                            <span class="badge skill-badge me-2 mb-2">SASS</span>
-                            <span class="badge skill-badge me-2 mb-2">Bootstrap</span>
-                            <span class="badge skill-badge me-2 mb-2">Blazor</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Database</h5>
-                        <div class="d-flex flex-wrap">
-                            <span class="badge skill-badge me-2 mb-2">Microsoft SQL Server</span>
-                            <span class="badge skill-badge me-2 mb-2">T-SQL Queries</span>
-                            <span class="badge skill-badge me-2 mb-2">Stored Procedures</span>
-                            <span class="badge skill-badge me-2 mb-2">Functions</span>
-                            <span class="badge skill-badge me-2 mb-2">Views</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Cloud & Tools</h5>
-                        <div class="d-flex flex-wrap">
-                            <span class="badge skill-badge me-2 mb-2">Azure</span>
-                            <span class="badge skill-badge me-2 mb-2">Azure DevOps</span>
-                            <span class="badge skill-badge me-2 mb-2">GIT</span>
-                            <span class="badge skill-badge me-2 mb-2">GitHub</span>
-                            <span class="badge skill-badge me-2 mb-2">Visual Studio</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Methodologies</h5>
-                        <div class="d-flex flex-wrap">
-                            <span class="badge skill-badge me-2 mb-2">Agile Scrum</span>
-                            <span class="badge skill-badge me-2 mb-2">Object-Oriented Programming (OOP)</span>
-                            <span class="badge skill-badge me-2 mb-2">Requirements Gathering</span>
-                            <span class="badge skill-badge me-2 mb-2">Software Architecture</span>
-                            <span class="badge skill-badge me-2 mb-2">CI/CD</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 mb-3">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Other</h5>
-                        <div class="d-flex flex-wrap">
-                            <span class="badge skill-badge me-2 mb-2">SignalR</span>
-                            <span class="badge skill-badge me-2 mb-2">Highcharts</span>
-                            <span class="badge skill-badge me-2 mb-2">Accessibility Standards</span>
-                            <span class="badge skill-badge me-2 mb-2">Responsive Design</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="projects-section my-2">
-    <div class="container">
-        <h2 class="text-center mb-4">Featured Projects</h2>
-        @if (projects == null)
+<script suppress-error="BL9992">
+    // Inline backup animation script
+    (function ()
+    {
+        if (typeof window.initPortfolio === 'undefined')
         {
-            <p class="text-center">Loading...</p>
-        }
-        else if (projects.Count == 0)
-        {
-            <p class="text-center">No projects found.</p>
-        }
-        else
-        {
-            <div class="row">
-                @foreach (var project in projects)
+            console.log('Creating inline initPortfolio function');
+            window.initPortfolio = function ()
+            {
+                console.log('Inline initPortfolio called');
+                setTimeout(function ()
                 {
-                    <div class="col-md-4 mb-4">
-                        <div class="card project-card">
-                            <ProjectCard Project="@project" />
-                        </div>
-                    </div>
-                }
-            </div>
+                    var elem = document.getElementById('animatedText');
+                    if (elem)
+                    {
+                        console.log('Element found by inline script');
+                        var texts = [ 'digital experiences', 'web applications', 'user interfaces', 'scalable solutions' ];
+                        var idx = 0;
+                        elem.style.transition = 'opacity 0.3s ease';
+                        setInterval(function ()
+                        {
+                            idx = (idx + 1) % texts.length;
+                            elem.style.opacity = '0';
+                            setTimeout(function ()
+                            {
+                                elem.textContent = texts[ idx ];
+                                elem.style.opacity = '1';
+                            }, 300);
+                        }, 3000);
+                    } else
+                    {
+                        console.log('Element not found by inline script');
+                    }
+                }, 500);
+            };
         }
-    </div>
-</div>
-
-<footer class="text-center py-2 bg-light text-dark">
-    <p class="mb-0">© @DateTime.Today.Year Dean McCoy. All rights reserved.</p>
-</footer>
+    })();
+</script>
 
 @code {
-    private List<Project>? projects;
+    private string currentSection = "home";
+    private bool hasInitialized = false;
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        projects = await ProjectService.GetProjectsAsync();
+        if (firstRender)
+        {
+            hasInitialized = true;
+            await Task.Delay(300); // Give Blazor time to fully render
+            await JSRuntime.InvokeVoidAsync("initPortfolio");
+            await JSRuntime.InvokeVoidAsync("eval", "console.log('Home.razor: Component initialized')");
+        }
+    }
+
+    private void GoHome() => _ = ShowSection("home");
+    private void GoProjects() => _ = ShowSection("projects");
+    private void GoContact() => _ = ShowSection("contact");
+
+    private async Task ShowSection(string section)
+    {
+        await JSRuntime.InvokeVoidAsync("eval", $"console.log('ShowSection called with: {section}')");
+        currentSection = section;
+        StateHasChanged(); // Force UI update
+
+        if (section == "projects" || section == "contact")
+        {
+            try
+            {
+                await JSRuntime.InvokeVoidAsync("scrollToTop");
+            }
+            catch (Exception ex)
+            {
+                await JSRuntime.InvokeVoidAsync("eval", $"console.error('Error scrolling: {ex.Message}')");
+            }
+        }
+        else if (section == "home" && hasInitialized)
+        {
+            // Restart animation when going back to home
+            await Task.Delay(300);
+            await JSRuntime.InvokeVoidAsync("initPortfolio");
+        }
     }
 }
