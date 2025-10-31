@@ -1,0 +1,134 @@
+﻿:root {
+    --primary-color: #8CC084; /* Lighter green for buttons */
+    --primary-hover-color: #70A762; /* Darker green for hover */
+    --secondary-color: #6c757d; /* Gray for GitHub button */
+    --accent-color: #080D07; /* Black for skills */
+    --background-color: #f8f9fa; /* Light gray background */
+    --linkedin-color: #0072b1; /* LinkedIn brand blue */
+    --linkedin-hover-color: #005f8f; /* Slightly darker for LinkedIn hover */
+    --skills-background-color: #E6F0E1; /* Light green for skills section */
+    --contact-color: #005f8f; /* Dark blue for Contact Me button */
+    --contact-hover-color: #0072b1; /* LinkedIn blue for hover */
+}
+
+body {
+    background-color: var(--background-color);
+    font-family: 'Nunito Sans', sans-serif;
+}
+
+.hero-section {
+    background: linear-gradient(to right, #70A762, #3A5C33); /* Green gradient */
+    color: white;
+    padding: 50px 0;
+    text-align: center;
+}
+
+    .hero-section h1, .hero-section h2, .hero-section p {
+        font-family: 'Nunito Sans', sans-serif;
+        font-weight: 700; /* Bold for headings */
+    }
+
+    .hero-section p {
+        font-weight: 400; /* Regular for paragraph */
+    }
+
+.project-card {
+    transition: transform 0.2s;
+}
+
+    .project-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .project-card .card-title {
+        font-family: 'Nunito Sans', sans-serif;
+        font-weight: 600; /* Semi-bold for card titles */
+    }
+
+    .project-card .card-text {
+        font-family: 'Nunito Sans', sans-serif;
+        font-weight: 400; /* Regular for card text */
+    }
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+}
+
+    .btn-primary:hover {
+        background-color: var(--primary-hover-color);
+        border-color: var(--primary-hover-color);
+        color: white;
+    }
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+}
+
+    .btn-secondary:hover {
+        background-color: #5c636a;
+        border-color: #5c636a;
+    }
+
+.btn-linkedin {
+    background-color: var(--linkedin-color);
+    border-color: var(--linkedin-color);
+    color: white;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+}
+
+    .btn-linkedin:hover {
+        background-color: var(--linkedin-hover-color);
+        border-color: var(--linkedin-hover-color);
+        color: white;
+    }
+
+.btn-contact {
+    background-color: var(--contact-color);
+    border-color: var(--contact-color);
+    color: white;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    width: 240px; /* Wider to match LinkedIn + GitHub buttons */
+    margin: 0 auto; /* Center the button */
+}
+
+    .btn-contact:hover {
+        background-color: var(--contact-hover-color);
+        border-color: var(--contact-hover-color);
+        color: white;
+    }
+
+.skill-badge {
+    background-color: var(--accent-color);
+    color: white;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 400;
+}
+
+footer {
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 400;
+}
+
+.skills-section {
+    background-color: var(--skills-background-color);
+    padding: 15px; /* Reduced from 20px */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.projects-section {
+    background-color: var(--skills-background-color);
+    padding: 15px; /* Reduced from 20px */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
