@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
@@ -13,24 +12,29 @@ namespace PortfolioAPI
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
             builder.Services.AddControllers();
 
             builder.Services.AddDbContext<PortfolioDbContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("PortfolioDb"),
-            sqlServerOptions => sqlServerOptions.EnableRetryOnFailure(
-                maxRetryCount: 5,
-                maxRetryDelay: TimeSpan.FromSeconds(10),
-                errorNumbersToAdd: null)));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("PortfolioDb"),
+                sqlServerOptions => sqlServerOptions.EnableRetryOnFailure(
+                    maxRetryCount: 5,
+                    maxRetryDelay: TimeSpan.FromSeconds(10),
+                    errorNumbersToAdd: null)));
 
-            // Add CORS
+            // Add CORS - UPDATED
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowPortfolioClient", builder =>
                 {
-                    builder.WithOrigins("https://localhost:7182") // Adjust to PortfolioClient port
-                           .AllowAnyMethod()
-                           .AllowAnyHeader();
+                    builder.WithOrigins(
+                        "https://localhost:7182",  // Local development
+                        "https://red-desert-0ef331410.3.azurestaticapps.net",  // Azure temporary URL
+                        "https://deanm.dev",  // Root domain (redirects to www)
+                        "https://www.deanm.dev"  // Primary custom domain
+                    )
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
                 });
             });
 
@@ -38,14 +42,12 @@ namespace PortfolioAPI
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.Authority = "https://login.microsoftonline.com/917f9213-2bac-4a41-ba47-8026b0e2adea"; // Replace with Directory (tenant) ID
-                    options.Audience = "e5b9d857-5798-4a28-88af-22f9615f1f86"; // Replace with Application (client) ID
+                    options.Authority = "https://login.microsoftonline.com/917f9213-2bac-4a41-ba47-8026b0e2adea";
+                    options.Audience = "e5b9d857-5798-4a28-88af-22f9615f1f86";
                 });
 
-           
-
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen( c =>
+            builder.Services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Portfolio API", Version = "v1" });
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "PortfolioAPI.xml"), true);
@@ -59,21 +61,18 @@ namespace PortfolioAPI
                     BearerFormat = "JWT"
                 });
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
-            },
-            Array.Empty<string>()
-        }
-    });
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "Bearer" }
+                        },
+                        Array.Empty<string>()
+                    }
+                });
             });
 
-            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
-
-            // Automatically includes User Secrets in Development environment
             builder.Configuration.AddUserSecrets<Program>();
 
             var app = builder.Build();
@@ -86,15 +85,14 @@ namespace PortfolioAPI
                 app.UseSwaggerUI(c =>
                 {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Portfolio API V1");
-                    c.RoutePrefix = string.Empty; // Set Swagger UI at the app's root
+                    c.RoutePrefix = string.Empty;
                 });
             }
 
             app.UseHttpsRedirection();
-            app.UseCors("AllowPortfolioClient");
+            app.UseCors("AllowPortfolioClient");  // Applied before authentication
             app.UseAuthentication();
             app.UseAuthorization();
-
 
             app.MapControllers();
 
