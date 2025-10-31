@@ -1,0 +1,141 @@
+﻿@page "/"
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Dean McCoy - Portfolio</PageTitle>
+
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+<div class="particle"></div>
+
+<div class="container">
+    <nav>
+        <a class="logo" @onclick="GoHome">DM</a>
+        <ul class="nav-links">
+            <li><a class="nav-link @(currentSection == "home" ? "active" : "")" @onclick="GoHome">Home</a></li>
+            <li><a class="nav-link @(currentSection == "projects" ? "active" : "")" @onclick="GoProjects">Projects</a></li>
+            <li><a class="nav-link @(currentSection == "contact" ? "active" : "")" @onclick="GoContact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Section -->
+    <section class="hero @(currentSection != "home" ? "hidden" : "")" id="home-section">
+        <div class="hero-content">
+            <p class="greeting">Welcome, my name is</p>
+            <h1 class="name">Dean McCoy</h1>
+            <div class="tagline-container">
+                <span class="tagline-prefix">I build compelling </span>
+                <span class="tagline-animated" id="animatedText">digital experiences</span>
+            </div>
+            <p class="description">
+                Software engineer with over 18 years of experience, passionate about solving problems with code.
+                Specializing in C#, ASP.NET Core, Angular, Blazor, and Microsoft SQL Server.
+            </p>
+            <button type="button" class="cta-button" @onclick="GoProjects">
+                View my projects
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+            </button>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <div class="@(currentSection != "projects" ? "hidden" : "")">
+        <ProjectsSection />
+    </div>
+
+    <!-- Contact Section -->
+    <div class="@(currentSection != "contact" ? "hidden" : "")">
+        <ContactSection />
+    </div>
+</div>
+
+<!-- Footer Component -->
+<Footer />
+
+<script suppress-error="BL9992">
+    // Inline backup animation script
+    (function ()
+    {
+        if (typeof window.initPortfolio === 'undefined')
+        {
+            console.log('Creating inline initPortfolio function');
+            window.initPortfolio = function ()
+            {
+                console.log('Inline initPortfolio called');
+                setTimeout(function ()
+                {
+                    var elem = document.getElementById('animatedText');
+                    if (elem)
+                    {
+                        console.log('Element found by inline script');
+                        var texts = [ 'digital experiences', 'web applications', 'user interfaces', 'scalable solutions' ];
+                        var idx = 0;
+                        elem.style.transition = 'opacity 0.3s ease';
+                        setInterval(function ()
+                        {
+                            idx = (idx + 1) % texts.length;
+                            elem.style.opacity = '0';
+                            setTimeout(function ()
+                            {
+                                elem.textContent = texts[ idx ];
+                                elem.style.opacity = '1';
+                            }, 300);
+                        }, 3000);
+                    } else
+                    {
+                        console.log('Element not found by inline script');
+                    }
+                }, 500);
+            };
+        }
+    })();
+</script>
+
+@code {
+    private string currentSection = "home";
+    private bool hasInitialized = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            hasInitialized = true;
+            await Task.Delay(300); // Give Blazor time to fully render
+            await JSRuntime.InvokeVoidAsync("initPortfolio");
+            await JSRuntime.InvokeVoidAsync("eval", "console.log('Home.razor: Component initialized')");
+        }
+    }
+
+    private void GoHome() => _ = ShowSection("home");
+    private void GoProjects() => _ = ShowSection("projects");
+    private void GoContact() => _ = ShowSection("contact");
+
+    private async Task ShowSection(string section)
+    {
+        await JSRuntime.InvokeVoidAsync("eval", $"console.log('ShowSection called with: {section}')");
+        currentSection = section;
+        StateHasChanged(); // Force UI update
+
+        if (section == "projects" || section == "contact")
+        {
+            try
+            {
+                await JSRuntime.InvokeVoidAsync("scrollToTop");
+            }
+            catch (Exception ex)
+            {
+                await JSRuntime.InvokeVoidAsync("eval", $"console.error('Error scrolling: {ex.Message}')");
+            }
+        }
+        else if (section == "home" && hasInitialized)
+        {
+            // Restart animation when going back to home
+            await Task.Delay(300);
+            await JSRuntime.InvokeVoidAsync("initPortfolio");
+        }
+    }
+}
