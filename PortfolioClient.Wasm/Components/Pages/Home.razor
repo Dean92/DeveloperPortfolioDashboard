@@ -14,6 +14,8 @@
         <a class="logo" @onclick="GoHome">DM</a>
         <ul class="nav-links">
             <li><a class="nav-link @(currentSection == "home" ? "active" : "")" @onclick="GoHome">Home</a></li>
+            <li><a class="nav-link @(currentSection == "experience" ? "active" : "")" @onclick="GoExperience">Experience</a></li>
+            <li><a class="nav-link @(currentSection == "skills" ? "active" : "")" @onclick="GoSkills">Skills</a></li>
             <li><a class="nav-link @(currentSection == "projects" ? "active" : "")" @onclick="GoProjects">Projects</a></li>
             <li><a class="nav-link @(currentSection == "contact" ? "active" : "")" @onclick="GoContact">Contact</a></li>
         </ul>
@@ -41,6 +43,16 @@
             </button>
         </div>
     </section>
+
+    <!-- Experience Section -->
+    <div class="@(currentSection != "experience" ? "hidden" : "")">
+        <ExperienceSection />
+    </div>
+
+    <!-- Skills Section -->
+    <div class="@(currentSection != "skills" ? "hidden" : "")">
+        <SkillsSection />
+    </div>
 
     <!-- Projects Section -->
     <div class="@(currentSection != "projects" ? "hidden" : "")">
@@ -104,13 +116,15 @@
         if (firstRender)
         {
             hasInitialized = true;
-            await Task.Delay(300); // Give Blazor time to fully render
+            await Task.Delay(300);
             await JSRuntime.InvokeVoidAsync("initPortfolio");
             await JSRuntime.InvokeVoidAsync("eval", "console.log('Home.razor: Component initialized')");
         }
     }
 
     private void GoHome() => _ = ShowSection("home");
+    private void GoExperience() => _ = ShowSection("experience");
+    private void GoSkills() => _ = ShowSection("skills");
     private void GoProjects() => _ = ShowSection("projects");
     private void GoContact() => _ = ShowSection("contact");
 
@@ -118,9 +132,9 @@
     {
         await JSRuntime.InvokeVoidAsync("eval", $"console.log('ShowSection called with: {section}')");
         currentSection = section;
-        StateHasChanged(); // Force UI update
+        StateHasChanged();
 
-        if (section == "projects" || section == "contact")
+        if (section != "home")
         {
             try
             {
@@ -133,7 +147,6 @@
         }
         else if (section == "home" && hasInitialized)
         {
-            // Restart animation when going back to home
             await Task.Delay(300);
             await JSRuntime.InvokeVoidAsync("initPortfolio");
         }

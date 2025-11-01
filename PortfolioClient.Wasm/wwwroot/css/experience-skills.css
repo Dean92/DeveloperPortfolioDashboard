@@ -1,0 +1,299 @@
+﻿/* Experience Section */
+.experience-section {
+    padding: 6rem 0;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #0a0a0a 0%, #1a1a2e 100%);
+}
+
+.experience-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.experience-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+    .experience-item::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .experience-item:hover {
+        border-color: rgba(102, 126, 234, 0.3);
+        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.15);
+        transform: translateY(-2px);
+    }
+
+        .experience-item:hover::before {
+            opacity: 1;
+        }
+
+.experience-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.experience-company {
+    flex: 1;
+}
+
+.company-name {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.2;
+}
+
+.experience-duration {
+    font-size: 0.95rem;
+    color: #9b9b9b;
+    font-weight: 400;
+}
+
+.experience-location {
+    font-size: 0.95rem;
+    color: #9b9b9b;
+    padding: 0.5rem 1rem;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 20px;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.experience-position {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #e0e0e0;
+    margin: 0 0 1rem 0;
+}
+
+.experience-description {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: #b0b0b0;
+    margin-bottom: 1.5rem;
+}
+
+.experience-achievements-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 1.5rem 0 1rem 0;
+}
+
+.experience-achievements {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem 0;
+}
+
+    .experience-achievements li {
+        color: #b0b0b0;
+        line-height: 1.7;
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+        padding-left: 1.5rem;
+        position: relative;
+    }
+
+        .experience-achievements li::before {
+            content: '►';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-size: 0.9rem;
+        }
+
+.experience-tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+/* Skills Section */
+.skills-section {
+    padding: 6rem 0;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #0a0a0a 0%, #1a1a2e 100%);
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.skill-category {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+    .skill-category:hover {
+        border-color: rgba(102, 126, 234, 0.3);
+        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.15);
+        transform: translateY(-2px);
+    }
+
+.category-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.category-icon {
+    font-size: 1.8rem;
+}
+
+.category-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0;
+}
+
+.skills-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.skill-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.skill-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.skill-name {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #e0e0e0;
+}
+
+.skill-experience {
+    font-size: 0.85rem;
+    color: #9b9b9b;
+}
+
+.skill-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.skill-progress {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    transition: width 1s ease;
+}
+
+/* Additional Skills */
+.additional-skills {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+}
+
+.additional-skills-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 1.5rem 0;
+    text-align: center;
+}
+
+.additional-skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+}
+
+    .additional-skills-grid .skill-badge {
+        padding: 0.6rem 1.2rem;
+        background: rgba(102, 126, 234, 0.15);
+        border: 1px solid rgba(102, 126, 234, 0.3);
+        border-radius: 20px;
+        font-size: 0.95rem;
+        color: #b0b0ff;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+        .additional-skills-grid .skill-badge:hover {
+            background: rgba(102, 126, 234, 0.25);
+            border-color: rgba(102, 126, 234, 0.5);
+            transform: translateY(-2px);
+        }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .experience-section,
+    .skills-section {
+        padding: 4rem 0;
+    }
+
+    .experience-item,
+    .skill-category,
+    .additional-skills {
+        padding: 1.5rem;
+    }
+
+    .company-name {
+        font-size: 1.5rem;
+    }
+
+    .experience-position {
+        font-size: 1.1rem;
+    }
+
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .experience-header {
+        flex-direction: column;
+    }
+
+    .experience-location {
+        align-self: flex-start;
+    }
+}
