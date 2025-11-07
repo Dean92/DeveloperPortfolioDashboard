@@ -1,39 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Professional portfolio of Dean McCoy, Software Engineer with 18+ years of experience specializing in C#, ASP.NET Core, Angular, Blazor, and Microsoft SQL Server." />
+    <meta name="keywords" content="Dean McCoy, Software Engineer, Portfolio, C#, ASP.NET Core, Angular, Blazor, Full Stack Developer" />
+    <meta name="author" content="Dean McCoy" />
+    <meta name="theme-color" content="#1a1a2e" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Dean McCoy - Software Engineer Portfolio" />
+    <meta property="og:description" content="Professional portfolio showcasing 18+ years of software engineering experience" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dean McCoy - Software Engineer Portfolio" />
+    <meta name="twitter:description" content="Professional portfolio showcasing 18+ years of software engineering experience" />
+
     <title>Dean McCoy - Portfolio</title>
     <base href="/" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="css/custom.css" />
     <link rel="stylesheet" href="css/portfolio.css" />
     <link rel="stylesheet" href="css/experience-skills.css" />
-    <link rel="icon" type="image/png" href="favicon.png" />
     <link href="PortfolioClient.Wasm.styles.css" rel="stylesheet" />
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app">
-        <svg class="loading-progress">
-            <circle r="40%" cx="50%" cy="50%" />
-            <circle r="40%" cx="50%" cy="50%" />
-        </svg>
-        <div class="loading-progress-text"></div>
+      <svg class="loading-progress">
+        <circle r="40%" cx="50%" cy="50%" />
+        <circle r="40%" cx="50%" cy="50%" />
+      </svg>
+      <div class="loading-progress-text"></div>
     </div>
 
     <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="." class="reload">Reload</a>
-        <span class="dismiss">🗙</span>
+      An unhandled error has occurred.
+      <a href="." class="reload">Reload</a>
+      <span class="dismiss">🗙</span>
     </div>
     <script src="portfolio.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
-</body>
-
+  </body>
 </html>

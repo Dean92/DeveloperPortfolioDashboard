@@ -1,0 +1,54 @@
+@inherits ErrorBoundaryBase
+@inject ILogger<CustomErrorBoundary> Logger
+@inject NavigationManager NavigationManager
+
+<div class="error-boundary">
+    @if (CurrentException is null)
+    {
+        @ChildContent
+    }
+    else
+    {
+        <div class="error-container">
+            <div class="error-content">
+                <h1 class="error-title">⚠️ Oops! Something went wrong</h1>
+                <p class="error-message">
+                    We're sorry, but an unexpected error occurred. Please try refreshing the page.
+                </p>
+
+                <div class="error-actions">
+                    <button class="btn btn-primary" @onclick="Recover">
+                        Try Again
+                    </button>
+                    <button class="btn btn-secondary" @onclick="ReloadPage">
+                        Reload Page
+                    </button>
+                </div>
+
+                @if (ShowDetails)
+                {
+                    <details class="error-details">
+                        <summary>Technical Details</summary>
+                        <pre>@CurrentException.ToString()</pre>
+                    </details>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public bool ShowDetails { get; set; } = false;
+
+    protected override Task OnErrorAsync(Exception exception)
+    {
+        Logger?.LogError(exception, "Error caught by ErrorBoundary: {Message}", exception.Message);
+        return Task.CompletedTask;
+    }
+
+    private void ReloadPage()
+    {
+        NavigationManager?.NavigateTo(NavigationManager.Uri, forceLoad: true);
+    }
+}

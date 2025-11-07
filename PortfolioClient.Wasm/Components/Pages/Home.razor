@@ -10,33 +10,33 @@
 <div class="particle"></div>
 
 <div class="container">
-    <nav>
-        <a class="logo" @onclick="GoHome">DM</a>
+    <nav role="navigation" aria-label="Main navigation">
+        <a class="logo" @onclick="GoHome" @onkeydown="@((e) => HandleKeyPress(e, GoHome))" tabindex="0" role="button" aria-label="Go to home page">DM</a>
         <ul class="nav-links">
-            <li><a class="nav-link @(currentSection == "home" ? "active" : "")" @onclick="GoHome">Home</a></li>
-            <li><a class="nav-link @(currentSection == "experience" ? "active" : "")" @onclick="GoExperience">Experience</a></li>
-            <li><a class="nav-link @(currentSection == "skills" ? "active" : "")" @onclick="GoSkills">Skills</a></li>
-            <li><a class="nav-link @(currentSection == "projects" ? "active" : "")" @onclick="GoProjects">Projects</a></li>
-            <li><a class="nav-link @(currentSection == "contact" ? "active" : "")" @onclick="GoContact">Contact</a></li>
+            <li><a class="nav-link @(currentSection == "home" ? "active" : "")" @onclick="GoHome" @onkeydown="@((e) => HandleKeyPress(e, GoHome))" tabindex="0" role="button" aria-label="Navigate to home section" aria-current="@(currentSection == "home" ? "page" : null)">Home</a></li>
+            <li><a class="nav-link @(currentSection == "experience" ? "active" : "")" @onclick="GoExperience" @onkeydown="@((e) => HandleKeyPress(e, GoExperience))" tabindex="0" role="button" aria-label="Navigate to experience section" aria-current="@(currentSection == "experience" ? "page" : null)">Experience</a></li>
+            <li><a class="nav-link @(currentSection == "skills" ? "active" : "")" @onclick="GoSkills" @onkeydown="@((e) => HandleKeyPress(e, GoSkills))" tabindex="0" role="button" aria-label="Navigate to skills section" aria-current="@(currentSection == "skills" ? "page" : null)">Skills</a></li>
+            <li><a class="nav-link @(currentSection == "projects" ? "active" : "")" @onclick="GoProjects" @onkeydown="@((e) => HandleKeyPress(e, GoProjects))" tabindex="0" role="button" aria-label="Navigate to projects section" aria-current="@(currentSection == "projects" ? "page" : null)">Projects</a></li>
+            <li><a class="nav-link @(currentSection == "contact" ? "active" : "")" @onclick="GoContact" @onkeydown="@((e) => HandleKeyPress(e, GoContact))" tabindex="0" role="button" aria-label="Navigate to contact section" aria-current="@(currentSection == "contact" ? "page" : null)">Contact</a></li>
         </ul>
     </nav>
 
     <!-- Home Section -->
-    <section class="hero @(currentSection != "home" ? "hidden" : "")" id="home-section">
+    <section class="hero @(currentSection != "home" ? "hidden" : "")" id="home-section" role="main" aria-label="Home section">
         <div class="hero-content">
             <p class="greeting">Welcome, my name is</p>
             <h1 class="name">Dean McCoy</h1>
             <div class="tagline-container">
                 <span class="tagline-prefix">I build compelling </span>
-                <span class="tagline-animated" id="animatedText">digital experiences</span>
+                <span class="tagline-animated" id="animatedText" aria-live="polite">digital experiences</span>
             </div>
             <p class="description">
                 Software engineer with over 18 years of experience, passionate about solving problems with code.
                 Specializing in C#, ASP.NET Core, Angular, Blazor, and Microsoft SQL Server.
             </p>
-            <button type="button" class="cta-button" @onclick="GoProjects">
+            <button type="button" class="cta-button" @onclick="GoProjects" @onkeydown="@((e) => HandleKeyPress(e, GoProjects))" aria-label="View my projects portfolio">
                 View my projects
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
@@ -45,22 +45,22 @@
     </section>
 
     <!-- Experience Section -->
-    <div class="@(currentSection != "experience" ? "hidden" : "")">
+    <div class="@(currentSection != "experience" ? "hidden" : "")" role="region" aria-label="Work experience section">
         <ExperienceSection />
     </div>
 
     <!-- Skills Section -->
-    <div class="@(currentSection != "skills" ? "hidden" : "")">
+    <div class="@(currentSection != "skills" ? "hidden" : "")" role="region" aria-label="Skills and technologies section">
         <SkillsSection />
     </div>
 
     <!-- Projects Section -->
-    <div class="@(currentSection != "projects" ? "hidden" : "")">
+    <div class="@(currentSection != "projects" ? "hidden" : "")" role="region" aria-label="Portfolio projects section">
         <ProjectsSection />
     </div>
 
     <!-- Contact Section -->
-    <div class="@(currentSection != "contact" ? "hidden" : "")">
+    <div class="@(currentSection != "contact" ? "hidden" : "")" role="region" aria-label="Contact information section">
         <ContactSection />
     </div>
 </div>
@@ -119,6 +119,14 @@
             await Task.Delay(300);
             await JSRuntime.InvokeVoidAsync("initPortfolio");
             await JSRuntime.InvokeVoidAsync("eval", "console.log('Home.razor: Component initialized')");
+        }
+    }
+
+    private void HandleKeyPress(KeyboardEventArgs e, Action action)
+    {
+        if (e.Key == "Enter" || e.Key == " ")
+        {
+            action();
         }
     }
 
