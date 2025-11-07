@@ -1,0 +1,479 @@
+{
+  "projectName": "PortfolioClient.Wasm",
+  "lastUpdated": "2025-11-07",
+  "version": "1.0.0",
+  "priorities": {
+    "immediate": {
+      "timeframe": "This Week",
+      "tasks": [
+        {
+          "id": "IMM-001",
+          "title": "API Client Service Layer",
+          "priority": "HIGH",
+          "category": "Architecture",
+          "status": "completed",
+          "completedDate": "2025-11-07",
+          "estimatedHours": 4,
+          "actualHours": 2,
+          "description": "Create proper service layer for API calls instead of direct HttpClient injection",
+          "benefits": [
+            "Centralized error handling",
+            "Retry logic",
+            "Better testability",
+            "Type-safe API calls",
+            "Response caching"
+          ],
+          "files": [
+            "Services/IProjectService.cs",
+            "Services/ProjectService.cs",
+            "Services/IExperienceService.cs",
+            "Services/ExperienceService.cs",
+            "Program.cs"
+          ],
+          "steps": [
+            "Create Services folder",
+            "Create interface definitions",
+            "Implement service classes with error handling",
+            "Register services in Program.cs",
+            "Update components to use services"
+          ]
+        },
+        {
+          "id": "IMM-002",
+          "title": "Response Caching",
+          "priority": "HIGH",
+          "category": "Performance",
+          "status": "completed",
+          "completedDate": "2025-11-07",
+          "estimatedHours": 3,
+          "actualHours": 1.5,
+          "description": "Implement client-side caching for API responses",
+          "benefits": [
+            "Reduce network calls",
+            "Faster page loads",
+            "Better offline experience",
+            "Lower API costs"
+          ],
+          "files": [
+            "Services/CachedProjectService.cs",
+            "Services/CacheService.cs"
+          ],
+          "implementation": {
+            "cacheExpiration": "5 minutes",
+            "storageType": "Memory",
+            "invalidationStrategy": "Time-based"
+          }
+        },
+        {
+          "id": "IMM-003",
+          "title": "Remove Unused Demo Components",
+          "priority": "HIGH",
+          "category": "Code Quality",
+          "status": "completed",
+          "completedDate": "2025-11-07",
+          "estimatedHours": 0.5,
+          "actualHours": 0.25,
+          "description": "Clean up Blazor template files that are not being used",
+          "filesToDelete": [
+            "Components/Pages/Counter.razor",
+            "Components/Pages/Weather.razor",
+            "wwwroot/sample-data/weather.json"
+          ],
+          "verificationSteps": [
+            "Search for references to Counter component",
+            "Search for references to Weather component",
+            "Remove files",
+            "Build and test"
+          ]
+        },
+        {
+          "id": "IMM-004",
+          "title": "Global Error Boundary",
+          "priority": "HIGH",
+          "category": "Error Handling",
+          "status": "completed",
+          "completedDate": "2025-11-07",
+          "estimatedHours": 2,
+          "actualHours": 1.5,
+          "description": "Implement comprehensive error handling with error boundaries",
+          "benefits": [
+            "Graceful error recovery",
+            "Better user experience",
+            "Error logging and tracking",
+            "Prevent white screen of death"
+          ],
+          "files": [
+            "Services/ErrorHandler.cs",
+            "Components/ErrorBoundary.razor",
+            "App.razor"
+          ]
+        },
+        {
+          "id": "IMM-005",
+          "title": "Accessibility Improvements",
+          "priority": "HIGH",
+          "category": "UX/Accessibility",
+          "status": "completed",
+          "completedDate": "2025-11-07",
+          "estimatedHours": 3,
+          "actualHours": 2,
+          "description": "Add ARIA labels, keyboard navigation, and screen reader support",
+          "wcagLevel": "AA",
+          "improvements": [
+            "Add ARIA labels to navigation",
+            "Implement keyboard navigation (Enter, Space, Arrow keys)",
+            "Add focus indicators",
+            "Ensure proper heading hierarchy",
+            "Add alt text to all images",
+            "Improve color contrast ratios"
+          ],
+          "files": [
+            "Components/Pages/Home.razor",
+            "Components/ProjectsSection.razor",
+            "Components/ContactSection.razor",
+            "wwwroot/css/portfolio.css"
+          ]
+        },
+        {
+          "id": "IMM-006",
+          "title": "Update Favicon and App Icons",
+          "priority": "HIGH",
+          "category": "Branding",
+          "status": "completed",
+          "completedDate": "2025-11-07",
+          "estimatedHours": 1,
+          "actualHours": 0.5,
+          "description": "Create and implement professional favicon and PWA icons",
+          "note": "Manifest and HTML setup completed. Actual image files need to be generated using favicon.io or realfavicongenerator.net - see FAVICON_INSTRUCTIONS.md",
+          "deliverables": [
+            "favicon.ico (16x16, 32x32, 48x48)",
+            "favicon.png (192x192)",
+            "icon-512.png (512x512) for PWA",
+            "apple-touch-icon.png (180x180)",
+            "manifest.json with icon references"
+          ],
+          "files": [
+            "wwwroot/favicon.ico",
+            "wwwroot/favicon.png",
+            "wwwroot/icon-192.png",
+            "wwwroot/icon-512.png",
+            "wwwroot/apple-touch-icon.png",
+            "wwwroot/manifest.json",
+            "wwwroot/index.html"
+          ],
+          "steps": [
+            "Design favicon with 'DM' initials or logo",
+            "Generate multiple sizes using favicon generator",
+            "Create manifest.json for PWA",
+            "Update index.html with all icon references",
+            "Test on multiple browsers and devices"
+          ],
+          "tools": [
+            "https://realfavicongenerator.net/",
+            "https://favicon.io/",
+            "Figma or Adobe Illustrator for design"
+          ]
+        }
+      ]
+    },
+    "shortTerm": {
+      "timeframe": "Next 2 Weeks",
+      "tasks": [
+        {
+          "id": "ST-001",
+          "title": "State Management Implementation",
+          "priority": "MEDIUM",
+          "category": "Architecture",
+          "status": "pending",
+          "estimatedHours": 5,
+          "description": "Implement centralized state management for application state",
+          "options": [
+            "Fluxor (Redux pattern)",
+            "Custom AppState service",
+            "Blazor Cascading Values"
+          ],
+          "recommendedApproach": "Custom AppState service",
+          "files": [
+            "Services/AppState.cs",
+            "Components/Pages/Home.razor",
+            "App.razor"
+          ]
+        },
+        {
+          "id": "ST-002",
+          "title": "Environment-Specific Configuration",
+          "priority": "MEDIUM",
+          "category": "Configuration",
+          "status": "pending",
+          "estimatedHours": 2,
+          "description": "Separate dev, staging, and production configurations",
+          "files": [
+            "wwwroot/appsettings.Development.json",
+            "wwwroot/appsettings.Staging.json",
+            "wwwroot/appsettings.Production.json",
+            "Program.cs"
+          ],
+          "environments": {
+            "development": "https://localhost:5000",
+            "staging": "https://staging-api.yourdomain.com",
+            "production": "https://portfoliodashboardapi-b4bfeje0cwdeenh8.centralus-01.azurewebsites.net"
+          }
+        },
+        {
+          "id": "ST-003",
+          "title": "Loading Skeleton Screens",
+          "priority": "MEDIUM",
+          "category": "UX",
+          "status": "pending",
+          "estimatedHours": 3,
+          "description": "Replace generic loading messages with skeleton screens",
+          "files": [
+            "wwwroot/css/skeleton.css",
+            "Components/Shared/SkeletonLoader.razor",
+            "Components/ProjectsSection.razor"
+          ],
+          "components": [
+            "ProjectCardSkeleton",
+            "ExperienceSkeleton",
+            "SkillsSkeleton"
+          ]
+        },
+        {
+          "id": "ST-004",
+          "title": "Image Optimization",
+          "priority": "MEDIUM",
+          "category": "Performance",
+          "status": "pending",
+          "estimatedHours": 2,
+          "description": "Optimize images with WebP format, lazy loading, and responsive images",
+          "tasks": [
+            "Convert images to WebP format",
+            "Add loading='lazy' to images",
+            "Implement srcset for responsive images",
+            "Compress existing images"
+          ],
+          "expectedImpact": "30-50% reduction in image size"
+        },
+        {
+          "id": "ST-005",
+          "title": "Constants and Configuration File",
+          "priority": "MEDIUM",
+          "category": "Code Quality",
+          "status": "pending",
+          "estimatedHours": 1,
+          "description": "Create centralized constants file for magic strings and configuration values",
+          "files": [
+            "Constants/AppConstants.cs",
+            "Constants/ApiEndpoints.cs",
+            "Constants/CacheKeys.cs"
+          ]
+        }
+      ]
+    },
+    "longTerm": {
+      "timeframe": "Next Month",
+      "tasks": [
+        {
+          "id": "LT-001",
+          "title": "Progressive Web App (PWA) Implementation",
+          "priority": "MEDIUM",
+          "category": "Features",
+          "status": "pending",
+          "estimatedHours": 8,
+          "description": "Implement offline support and PWA capabilities",
+          "features": [
+            "Service worker for offline caching",
+            "App manifest",
+            "Install prompt",
+            "Offline fallback page",
+            "Background sync"
+          ],
+          "files": [
+            "wwwroot/service-worker.js",
+            "wwwroot/manifest.json",
+            "wwwroot/offline.html",
+            "wwwroot/index.html"
+          ]
+        },
+        {
+          "id": "LT-002",
+          "title": "Lazy Loading Components",
+          "priority": "MEDIUM",
+          "category": "Performance",
+          "status": "pending",
+          "estimatedHours": 4,
+          "description": "Implement lazy loading for section components",
+          "approach": "Dynamic component loading with Suspense",
+          "files": [
+            "Components/Pages/Home.razor"
+          ]
+        },
+        {
+          "id": "LT-003",
+          "title": "Analytics Integration",
+          "priority": "MEDIUM",
+          "category": "Monitoring",
+          "status": "pending",
+          "estimatedHours": 3,
+          "description": "Add Google Analytics or Application Insights",
+          "options": [
+            "Google Analytics 4",
+            "Azure Application Insights",
+            "Plausible Analytics (privacy-focused)"
+          ],
+          "events": [
+            "Page views",
+            "Section navigation",
+            "Project clicks",
+            "Contact button clicks",
+            "External link clicks"
+          ],
+          "files": [
+            "Services/AnalyticsService.cs",
+            "wwwroot/index.html"
+          ]
+        },
+        {
+          "id": "LT-004",
+          "title": "Application Insights & Telemetry",
+          "priority": "MEDIUM",
+          "category": "Monitoring",
+          "status": "pending",
+          "estimatedHours": 4,
+          "description": "Implement comprehensive application monitoring",
+          "metrics": [
+            "Page load times",
+            "API response times",
+            "Error rates",
+            "User engagement",
+            "Browser/device analytics"
+          ],
+          "dependencies": [
+            "Microsoft.ApplicationInsights.AspNetCore"
+          ]
+        },
+        {
+          "id": "LT-005",
+          "title": "Virtual Scrolling for Large Lists",
+          "priority": "LOW",
+          "category": "Performance",
+          "status": "pending",
+          "estimatedHours": 2,
+          "description": "Implement virtualization for projects/experience lists",
+          "components": [
+            "Blazor Virtualize component"
+          ],
+          "threshold": "Apply when items > 20"
+        },
+        {
+          "id": "LT-006",
+          "title": "Touch Gestures for Mobile",
+          "priority": "LOW",
+          "category": "UX",
+          "status": "pending",
+          "estimatedHours": 3,
+          "description": "Add swipe navigation for mobile devices",
+          "gestures": [
+            "Swipe left/right for section navigation",
+            "Pull-to-refresh",
+            "Touch feedback animations"
+          ]
+        }
+      ]
+    }
+  },
+  "security": {
+    "tasks": [
+      {
+        "id": "SEC-001",
+        "title": "Content Security Policy",
+        "priority": "HIGH",
+        "status": "pending",
+        "description": "Implement CSP headers to prevent XSS attacks",
+        "files": [
+          "wwwroot/index.html"
+        ]
+      },
+      {
+        "id": "SEC-002",
+        "title": "API Key Management",
+        "priority": "HIGH",
+        "status": "pending",
+        "description": "Move API URLs to Azure Key Vault or environment variables",
+        "tools": [
+          "Azure Key Vault",
+          "GitHub Secrets",
+          "Environment variables"
+        ]
+      }
+    ]
+  },
+  "technicalDebt": {
+    "items": [
+      {
+        "id": "TD-001",
+        "description": "Inline JavaScript in Home.razor should be moved to external file",
+        "priority": "MEDIUM",
+        "effort": "Low"
+      },
+      {
+        "id": "TD-002",
+        "description": "Hardcoded fallback projects should be moved to JSON file",
+        "priority": "LOW",
+        "effort": "Low"
+      },
+      {
+        "id": "TD-003",
+        "description": "CSS files should be consolidated and minified",
+        "priority": "MEDIUM",
+        "effort": "Medium"
+      }
+    ]
+  },
+  "testing": {
+    "recommendations": [
+      {
+        "type": "Unit Tests",
+        "framework": "bUnit",
+        "coverage": "Services and business logic"
+      },
+      {
+        "type": "Integration Tests",
+        "framework": "Playwright",
+        "coverage": "End-to-end user flows"
+      },
+      {
+        "type": "Performance Tests",
+        "tools": ["Lighthouse", "WebPageTest"],
+        "targets": {
+          "performanceScore": ">90",
+          "accessibilityScore": ">95",
+          "bestPracticesScore": ">90",
+          "seoScore": ">90"
+        }
+      }
+    ]
+  },
+  "documentation": {
+    "needed": [
+      "API integration guide",
+      "Component usage documentation",
+      "Deployment instructions",
+      "Environment setup guide",
+      "Contribution guidelines"
+    ]
+  },
+  "metrics": {
+    "currentBundleSize": "Unknown - needs measurement",
+    "targetBundleSize": "<2MB",
+    "currentLoadTime": "Unknown - needs measurement",
+    "targetLoadTime": "<3s on 3G"
+  },
+  "notes": [
+    "All HIGH priority tasks should be completed before production deployment",
+    "Run Lighthouse audit after each major change",
+    "Test on multiple browsers: Chrome, Firefox, Safari, Edge",
+    "Test on mobile devices: iOS Safari, Chrome Android",
+    "Consider implementing feature flags for gradual rollout"
+  ]
+}
