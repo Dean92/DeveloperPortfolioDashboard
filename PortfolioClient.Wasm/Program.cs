@@ -23,6 +23,7 @@ namespace PortfolioClient.Wasm
             builder.Services.AddSingleton<ICacheService, CacheService>();
             builder.Services.AddScoped<ProjectService>(); // Register as concrete type for decorator
             builder.Services.AddScoped<IProjectService, CachedProjectService>();
+            builder.Services.AddScoped<IAnalyticsService, GoogleAnalyticsService>();
 
             await builder.Build().RunAsync();
         }

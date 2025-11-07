@@ -1,5 +1,8 @@
 ﻿@page "/"
+@using PortfolioClient.Wasm.Services
 @inject IJSRuntime JSRuntime
+@inject IAnalyticsService AnalyticsService
+@inject NavigationManager NavigationManager
 
 <PageTitle>Dean McCoy - Portfolio</PageTitle>
 
@@ -119,6 +122,9 @@
             await Task.Delay(300);
             await JSRuntime.InvokeVoidAsync("initPortfolio");
             await JSRuntime.InvokeVoidAsync("eval", "console.log('Home.razor: Component initialized')");
+
+            // Track initial page view
+            await AnalyticsService.TrackPageView("Home", NavigationManager.Uri);
         }
     }
 
@@ -141,6 +147,9 @@
         await JSRuntime.InvokeVoidAsync("eval", $"console.log('ShowSection called with: {section}')");
         currentSection = section;
         StateHasChanged();
+
+        // Track section navigation
+        await AnalyticsService.TrackSectionNavigation(section);
 
         if (section != "home")
         {

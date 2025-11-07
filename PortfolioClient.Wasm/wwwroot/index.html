@@ -18,6 +18,19 @@
     <meta name="twitter:title" content="Dean McCoy - Software Engineer Portfolio" />
     <meta name="twitter:description" content="Professional portfolio showcasing 18+ years of software engineering experience" />
 
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-6MLWXX44C6"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+      gtag('config', 'G-6MLWXX44C6', {
+        send_page_view: false, // We'll handle page views manually in Blazor
+      });
+    </script>
+
     <title>Dean McCoy - Portfolio</title>
     <base href="/" />
 
