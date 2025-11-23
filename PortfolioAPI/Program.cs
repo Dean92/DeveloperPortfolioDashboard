@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using PortfolioAPI.Data;
+using Azure.Identity;
+using Microsoft.Data.SqlClient;
 
 namespace PortfolioAPI
 {
@@ -14,23 +16,44 @@ namespace PortfolioAPI
             // Add services to the container.
             builder.Services.AddControllers();
 
-            builder.Services.AddDbContext<PortfolioDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("PortfolioDb"),
-                sqlServerOptions => sqlServerOptions.EnableRetryOnFailure(
-                    maxRetryCount: 5,
-                    maxRetryDelay: TimeSpan.FromSeconds(10),
-                    errorNumbersToAdd: null)));
+            // Configure connection string with Managed Identity support when in Azure
+            var connectionString = builder.Configuration.GetConnectionString("PortfolioDb");
 
-            // Add CORS - UPDATED
+            builder.Services.AddDbContext<PortfolioDbContext>(options =>
+            {
+                var sqlConnectionString = new SqlConnectionStringBuilder(connectionString);
+
+                // Use Managed Identity when deployed to Azure
+                if (builder.Environment.IsProduction() &&
+                    sqlConnectionString.Authentication == SqlAuthenticationMethod.ActiveDirectoryDefault)
+                {
+                    options.UseSqlServer(connectionString,
+                        sqlServerOptions => sqlServerOptions.EnableRetryOnFailure(
+                            maxRetryCount: 5,
+                            maxRetryDelay: TimeSpan.FromSeconds(10),
+                            errorNumbersToAdd: null));
+                }
+                else
+                {
+                    // Use connection string as-is for local development
+                    options.UseSqlServer(connectionString,
+                        sqlServerOptions => sqlServerOptions.EnableRetryOnFailure(
+                            maxRetryCount: 5,
+                            maxRetryDelay: TimeSpan.FromSeconds(10),
+                            errorNumbersToAdd: null));
+                }
+            });
+
+            // Add CORS
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowPortfolioClient", builder =>
                 {
                     builder.WithOrigins(
-                        "https://localhost:7182",  // Local development
-                        "https://red-desert-0ef331410.3.azurestaticapps.net",  // Azure temporary URL
-                        "https://deanm.dev",  // Root domain (redirects to www)
-                        "https://www.deanm.dev"  // Primary custom domain
+                        "https://localhost:5001",  // Local WASM development
+                        "https://red-desert-0ef331410.3.azurestaticapps.net",  // Azure Static Web App
+                        "https://deanm.dev",
+                        "https://www.deanm.dev"
                     )
                     .AllowAnyMethod()
                     .AllowAnyHeader()
@@ -90,7 +113,7 @@ namespace PortfolioAPI
             }
 
             app.UseHttpsRedirection();
-            app.UseCors("AllowPortfolioClient");  // Applied before authentication
+            app.UseCors("AllowPortfolioClient");
             app.UseAuthentication();
             app.UseAuthorization();
 
