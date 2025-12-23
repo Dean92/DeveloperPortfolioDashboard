@@ -42,20 +42,21 @@ public class StaticProjectService : IProjectService
             new Project
             {
                 Id = 1,
-                Title = "Healthcare Customer Portal",
-                IntroDescription = "A full-stack enterprise application for managing secure customer portals for healthcare clients, with a focus on security and scalability.",
-                Description = "The frontend, developed with Angular, features role-based access control, real-time data synchronization using SignalR, and intuitive dashboards for healthcare data visualization. State management and responsive design were implemented to ensure a smooth user experience across all devices.",
-                DetailedDescription = "The backend, built with ASP.NET Core, includes RESTful APIs to handle authentication using OAuth 2.0 and JWT, data management, and real-time updates. SQL Server is used for data storage, while the application is hosted on Azure with high availability and performance optimization for hundreds of enterprise clients.",
+                Title = "Hockey Rink",
+                IntroDescription = "A Software as a Service (SaaS) solution for hockey rink management, streamlining operations for small businesses.",
+                Description = "The frontend, built with Angular 20 and Bootstrap 5.3.3, provides an intuitive interface for users to register for sessions, process credit card payments, and manage their bookings. Features include session registration for hockey leagues, lessons, and figure skating programs with skill-level based league selection.",
+                DetailedDescription = "The backend leverages .NET Core 9 API with Entity Framework Core and Azure SQL for robust data management. An administrative dashboard enables comprehensive management of leagues, sessions, teams, and payment processing. The application is deployed using GitHub Actions CI/CD pipeline to Azure Static Web Apps, ensuring reliable and scalable service delivery.",
                 KeyFeatures = new List<string>
                 {
-                    "<strong>Secure Authentication:</strong> Implemented OAuth 2.0 and JWT for enterprise-grade security and single sign-on capabilities.",
-                    "<strong>Real-Time Updates:</strong> Utilized SignalR for live data synchronization and instant notifications across connected clients.",
-                    "<strong>Scalable Architecture:</strong> Hosted on Azure for high availability, serving hundreds of enterprise clients with optimized performance.",
-                    "<strong>RESTful APIs:</strong> Built comprehensive API endpoints for authentication, data management, and system configuration."
+                    "<strong>User Registration & Payments:</strong> Seamless user registration with integrated credit card payment processing for all session types.",
+                    "<strong>Skill-Based League Management:</strong> Users can sign up for sessions matching their skill level, with automated team assignment and league organization.",
+                    "<strong>Administrative Dashboard:</strong> Comprehensive backend management system for leagues, sessions, teams, and payment tracking.",
+                    "<strong>Modern SaaS Architecture:</strong> Built with .NET Core 9, Angular 20, and Azure SQL, deployed via CI/CD pipeline to Azure Static Web Apps for enterprise-grade reliability."
                 },
-                Technologies = new List<string> { "ASP.NET Core", "Angular", "SignalR", "SQL Server", "Azure", "OAuth 2.0" },
-                GitHubUrl = "https://github.com/Dean92",
-                StartDate = DateTime.UtcNow.AddYears(-2)
+                Technologies = new List<string> { ".NET Core 9", "Angular 20", "Entity Framework Core", "Azure SQL", "Bootstrap 5.3.3", "GitHub Actions", "Azure Static Web Apps" },
+                GitHubUrl = "https://github.com/Dean92/hockey-rink-website",
+                ProjectUrl = "https://lively-river-0c3237510.1.azurestaticapps.net",
+                StartDate = new DateTime(2025, 1, 1)
             },
             new Project
             {
