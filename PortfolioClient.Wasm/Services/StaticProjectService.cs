@@ -1,125 +1,41 @@
-﻿@using PortfolioShared.Models
-@inject IHttpClientFactory HttpClientFactory
+using PortfolioShared.Models;
 
-<section class="projects-section" id="projects-section">
-    <div class="section-header">
-        <h2 class="section-title">Projects</h2>
-        <p class="section-subtitle">
-            Welcome to my portfolio, featuring a selection of personal projects I've developed alongside my professional experience.
-            Be sure to check out my professional work experience for more examples of what I do.
-        </p>
-        <p class="section-subtitle" style="margin-top: 1rem;">
-            Additional projects not listed here, such as client work, can be shared upon request.
-        </p>
-    </div>
+namespace PortfolioClient.Wasm.Services;
 
-    @if (isLoading)
+public class StaticProjectService : IProjectService
+{
+    private readonly ILogger<StaticProjectService> _logger;
+    private readonly List<Project> _projects;
+
+    public StaticProjectService(ILogger<StaticProjectService> logger)
     {
-        <div class="loading-message">
-            <p>Loading projects...</p>
-        </div>
-    }
-    else if (projects == null || !projects.Any())
-    {
-        <div class="no-projects-message">
-            <p>No projects available at this time.</p>
-        </div>
-    }
-    else
-    {
-        <div class="projects-list">
-            @foreach (var project in projects)
-            {
-                <article class="project-item">
-                    <div class="project-content">
-                        <h3 class="project-item-title">@project.Title</h3>
-                        
-                        @if (!string.IsNullOrEmpty(project.IntroDescription))
-                        {
-                            <p class="project-intro">@project.IntroDescription</p>
-                        }
-                        
-                        @if (!string.IsNullOrEmpty(project.Description))
-                        {
-                            <p class="project-details">@project.Description</p>
-                        }
-                        
-                        @if (!string.IsNullOrEmpty(project.DetailedDescription))
-                        {
-                            <p class="project-details">@project.DetailedDescription</p>
-                        }
-
-                        @if (project.KeyFeatures != null && project.KeyFeatures.Any())
-                        {
-                            <h4 class="project-features-title">Key Features and Achievements</h4>
-                            <ul class="project-features">
-                                @foreach (var feature in project.KeyFeatures)
-                                {
-                                    <li>► @((MarkupString)feature)</li>
-                                }
-                            </ul>
-                        }
-
-                        @if (project.Technologies != null && project.Technologies.Any())
-                        {
-                            <div class="project-tech-stack">
-                                @foreach (var tech in project.Technologies)
-                                {
-                                    <span class="tech-badge">@tech</span>
-                                }
-                            </div>
-                        }
-
-                        <div class="project-actions">
-                            @if (!string.IsNullOrEmpty(project.ProjectUrl))
-                            {
-                                <a href="@project.ProjectUrl" target="_blank" class="project-action-link">View Project</a>
-                            }
-                            @if (!string.IsNullOrEmpty(project.GitHubUrl))
-                            {
-                                <a href="@project.GitHubUrl" target="_blank" class="project-action-link">View Source Code</a>
-                            }
-                        </div>
-                    </div>
-                </article>
-            }
-        </div>
-    }
-</section>
-
-@code {
-    private List<Project>? projects;
-    private bool isLoading = true;
-    private string? errorMessage;
-
-    protected override async Task OnInitializedAsync()
-    {
-        await LoadProjects();
+        _logger = logger;
+        _projects = GetStaticProjects();
     }
 
-    private async Task LoadProjects()
+    public Task<List<Project>> GetProjectsAsync()
     {
-        try
+        _logger.LogInformation("Returning {Count} static projects", _projects.Count);
+        return Task.FromResult(_projects);
+    }
+
+    public Task<Project?> GetProjectByIdAsync(int id)
+    {
+        var project = _projects.FirstOrDefault(p => p.Id == id);
+        
+        if (project == null)
         {
-            isLoading = true;
-            var httpClient = HttpClientFactory.CreateClient("PortfolioApi");
-            projects = await httpClient.GetFromJsonAsync<List<Project>>("api/projects");
+            _logger.LogWarning("Project {ProjectId} not found", id);
         }
-        catch (Exception ex)
+        else
         {
-            errorMessage = $"Error loading projects: {ex.Message}";
-            Console.WriteLine(errorMessage);
-            
-            // Fallback to hardcoded projects if API fails
-            projects = GetFallbackProjects();
+            _logger.LogInformation("Returning static project {ProjectId}", id);
         }
-        finally
-        {
-            isLoading = false;
-        }
+        
+        return Task.FromResult(project);
     }
 
-    private List<Project> GetFallbackProjects()
+    private static List<Project> GetStaticProjects()
     {
         return new List<Project>
         {
@@ -138,7 +54,8 @@
                     "<strong>RESTful APIs:</strong> Built comprehensive API endpoints for authentication, data management, and system configuration."
                 },
                 Technologies = new List<string> { "ASP.NET Core", "Angular", "SignalR", "SQL Server", "Azure", "OAuth 2.0" },
-                GitHubUrl = "https://github.com/Dean92"
+                GitHubUrl = "https://github.com/Dean92",
+                StartDate = DateTime.UtcNow.AddYears(-2)
             },
             new Project
             {
@@ -155,7 +72,8 @@
                     "<strong>Real-Time Analytics:</strong> Provided instant data updates and dynamic filtering for enhanced user experience."
                 },
                 Technologies = new List<string> { "C#", "RESTful APIs", "Highcharts", "Entity Framework", "TypeScript", "SQL Server" },
-                GitHubUrl = "https://github.com/Dean92"
+                GitHubUrl = "https://github.com/Dean92",
+                StartDate = DateTime.UtcNow.AddYears(-3)
             },
             new Project
             {
@@ -172,7 +90,8 @@
                     "<strong>Component Library:</strong> Created reusable, well-documented components for use across multiple applications."
                 },
                 Technologies = new List<string> { "Angular", "TypeScript", "Bootstrap", "SASS", "WCAG 2.0", "Accessibility" },
-                GitHubUrl = "https://github.com/Dean92"
+                GitHubUrl = "https://github.com/Dean92",
+                StartDate = DateTime.UtcNow.AddYears(-4)
             },
             new Project
             {
@@ -190,7 +109,8 @@
                 },
                 Technologies = new List<string> { "Blazor", "ASP.NET Core", "Entity Framework", "SQL Server", "C#" },
                 GitHubUrl = "https://github.com/Dean92/DeveloperPortfolioDashboard",
-                ProjectUrl = "https://github.com/Dean92/DeveloperPortfolioDashboard"
+                ProjectUrl = "https://github.com/Dean92/DeveloperPortfolioDashboard",
+                StartDate = DateTime.UtcNow.AddMonths(-2)
             }
         };
     }

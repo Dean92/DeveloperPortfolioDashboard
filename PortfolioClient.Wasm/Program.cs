@@ -12,17 +12,15 @@ namespace PortfolioClient.Wasm
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            // Configure HttpClient for API calls
+            // Configure HttpClient (kept for potential future use)
             var apiBaseUrl =
                 builder.Configuration["PortfolioApi:BaseUrl"]
                 ?? "https://portfoliodashboardapi-b4bfeje0cwdeenh8.centralus-01.azurewebsites.net/";
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(apiBaseUrl) });
 
-            // Register application services
-            builder.Services.AddSingleton<ICacheService, CacheService>();
-            builder.Services.AddScoped<ProjectService>(); // Register as concrete type for decorator
-            builder.Services.AddScoped<IProjectService, CachedProjectService>();
+            // Register application services - Using static project service (no API/DB calls)
+            builder.Services.AddScoped<IProjectService, StaticProjectService>();
             builder.Services.AddScoped<IAnalyticsService, GoogleAnalyticsService>();
 
             await builder.Build().RunAsync();
