@@ -479,8 +479,8 @@ nav {
 .portfolio-footer {
     background: linear-gradient(to bottom, rgba(10, 10, 10, 0.6) 0%, rgba(26, 26, 46, 0.8) 100%);
     border-top: 1px solid rgba(102, 126, 234, 0.15);
-    padding: 1rem 0;
-    margin-top: 3rem;
+    padding: 0.4rem 0;
+    margin-top: 2rem;
     text-align: center;
 }
 
@@ -491,14 +491,14 @@ nav {
 }
 
 .footer-text {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: #b0b0b0;
-    margin: 0 0 0.25rem 0;
+    margin: 0 0 0.1rem 0;
     font-weight: 400;
 }
 
 .footer-subtitle {
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     color: #808080;
     margin: 0;
     font-weight: 300;
