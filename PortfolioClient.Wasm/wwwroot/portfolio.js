@@ -16,10 +16,17 @@ window.initPortfolio = function() {
 
     // Animated text rotation
     const texts = [
-        'digital experiences',
-        'web applications',
-        'user interfaces',
-        'scalable solutions'
+        'Enterprise Platforms',
+        'Legacy Modernization',
+        'API Ecosystems',
+        'AI Integration',
+        'Cloud Architecture',
+        'Full-Stack Solutions',
+        'Regulated Systems',
+        'Developer Acceleration',
+        'Technical Leadership',
+        'Data Workflows'
+
     ];
     let currentIndex = 0;
     
